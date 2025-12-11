@@ -14,13 +14,14 @@ class Flower(arcade.Sprite):
         super().__init__()
         self.textures = []
         for i in range(9):
-            self.textures.append(arcade.texture(f'images/flowers/fowers{i}.png'))
-        print(self.texture)
+            print(i)
+            self.textures.append(arcade.load_texture(f'images/flowers/fowers{i}.png'))
+        print(self.textures[0])
         # 1. Загрузите все 9 текстур анимации в список self.textures.
         # 2. Установите начальную текстуру (бутон).
         # 3. Задайте позицию и масштаб спрайта.
         ...
-
+        self.textur = self.texture[0]
         self.animation_frame = 0
         self.is_blooming = False
         self.animation_timer = 0
