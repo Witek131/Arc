@@ -16,12 +16,14 @@ class Flower(arcade.Sprite):
         for i in range(9):
             print(i)
             self.textures.append(arcade.load_texture(f"images/flowers/flower{i}.png"))
-        print(self.textures[0])
         # 1. Загрузите все 9 текстур анимации в список self.textures.
         # 2. Установите начальную текстуру (бутон).
         # 3. Задайте позицию и масштаб спрайта.
         ...
         self.textur = self.textures[0]
+        self.center_x = x
+        self.center_y = y
+        self.scale = 0.2
         self.animation_frame = 0
         self.is_blooming = False
         self.animation_timer = 0
@@ -64,9 +66,11 @@ class MyGame(arcade.Window):
     def setup(self):
         self.flower_list = arcade.SpriteList()
         for i in range(FLOWER_COUNT):
-            f = Flower(x = random.randint(50, SCREEN_WIDTH -50),
-                       y = random.randint(50, SCREEN_HEIGHT - 50))
-            self.flower_list.append(f)
+            flower = Flower(
+                x=random.randint(50, SCREEN_WIDTH - 50),
+                y=random.randint(50, SCREEN_HEIGHT - 50)
+            )
+            self.flower_list.append(flower)
         # Создайте FLOWER_COUNT экземпляров класса Flower в случайных
         # позициях и добавьте их в self.flower_list.
         ...
