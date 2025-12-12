@@ -14,7 +14,6 @@ class Flower(arcade.Sprite):
         super().__init__()
         self.textures = []
         for i in range(9):
-            print(i)
             self.textures.append(arcade.load_texture(f"images/flowers/flower{i}.png"))
         # 1. Загрузите все 9 текстур анимации в список self.textures.
         # 2. Установите начальную текстуру (бутон).
@@ -49,7 +48,7 @@ class Flower(arcade.Sprite):
         ...
 
     def start_blooming(self):  # Изменение параметра цветения
-        if not self.is_blooming and self.animation_frame < len(self.textures) -1:
+        if not self.is_blooming and self.animation_frame < len(self.textures) - 1:
             self.is_blooming = True
         # Установите флаг is_blooming в True, чтобы запустить анимацию.
         ...
