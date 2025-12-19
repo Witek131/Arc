@@ -40,8 +40,8 @@ class GridGame(arcade.Window):
         self.clear()
         for row in range(self.rows):
             for col in range(self.cols):
-                x = row * CELL_SIZE + INDENT
-                y = col * CELL_SIZE + INDENT
+                x = row * CELL_SIZE + CELL_SIZE//2
+                y = col * CELL_SIZE + CELL_SIZE//2
                 arcade.draw_lbwh_rectangle_outline(x, y, CELL_SIZE, CELL_SIZE, arcade.color.GRAY, 1)
         for row in range(self.rows):
             for col in range(self.cols):
