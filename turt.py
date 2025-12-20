@@ -24,7 +24,7 @@ class GridGame(arcade.Window):
                 x = j * self.cell_size + self.cell_size // 2
                 y = i * self.cell_size + self.cell_size // 2
                 if i == 0 or j ==0 or i == 9 or j == 14:
-                    s_p = arcade.Sprite(self.stone_texture, scale=1)
+                    s_p = arcade.Sprite(self.stone_texture, scale=0.5)
                     s_p.position = (x, y)
                     self.grid[i][j] = (x,y)
                     self.wall_sprites.append(s_p)
@@ -35,21 +35,24 @@ class GridGame(arcade.Window):
                     self.grid[i][j] = [s_p]
                     self.wall_sprites.append(s_p)
                     self.all_sprites.append(s_p)
+
         self.player = arcade.Sprite(self.player_texture, scale=0.5)
-        x = self.cell_size + self.cell_size // 2
-        y = self.cell_size + self.cell_size // 2
+        x = 200
+        y = 200
         self.player.position = (x,y)
         self.all_sprites.append(self.player)
-        self.phisik = arcade.PhysicsEngineSimple(self.player, self.wall_sprites)
+        self.physics_engine = arcade.PhysicsEngineSimple(self.player, self.wall_sprites)
 
     def on_draw(self):
         self.clear()
         self.all_sprites.draw()
 
     def on_update(self, delta_time: float):
-        self.phisik.update()
+        self.physics_engine.update()
 
     def on_key_press(self, key, modifiers):
+        if key == arcade.key.UP:
+            self.player.change_y = SPEED
         ...
 
     def on_key_release(self, key, modifiers):
