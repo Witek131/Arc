@@ -62,7 +62,6 @@ class Platformer(arcade.Window):
         self.player = arcade.Sprite(":resources:images/animated_characters/female_person/femalePerson_idle.png",
                                     scale=0.8)
         self.player.center_x, self.player.center_y = self.spawn_point
-        print(self.player.center_x, self.player.center_y)
         self.player_list.append(self.player)
 
         # --- Мир: сделаем крошечную арену руками ---
@@ -141,34 +140,6 @@ class Platformer(arcade.Window):
         # --- GUI ---
         self.gui_camera.use()
         self.batch.draw()
-
-    def on_key_press(self, key, modifiers):
-        if key in (arcade.key.LEFT, arcade.key.A):
-            self.left = True
-        elif key in (arcade.key.RIGHT, arcade.key.D):
-            self.right = True
-        elif key in (arcade.key.UP, arcade.key.W):
-            self.up = True
-        elif key in (arcade.key.DOWN, arcade.key.S):
-            self.down = True
-        elif key == arcade.key.SPACE:
-            self.jump_pressed = True
-            self.jump_buffer_timer = JUMP_BUFFER
-
-    def on_key_release(self, key, modifiers):
-        if key in (arcade.key.LEFT, arcade.key.A):
-            self.left = False
-        elif key in (arcade.key.RIGHT, arcade.key.D):
-            self.right = False
-        elif key in (arcade.key.UP, arcade.key.W):
-            self.up = False
-        elif key in (arcade.key.DOWN, arcade.key.S):
-            self.down = False
-        elif key == arcade.key.SPACE:
-            self.jump_pressed = False
-            # Вариативная высота прыжка: отпустили рано — подрежем скорость вверх
-            if self.player.change_y > 0:
-                self.player.change_y *= 0.45
 
     def on_update(self, dt: float):
         # Обработка горизонтального движения
@@ -249,9 +220,44 @@ class Platformer(arcade.Window):
         self.text_score = arcade.Text(f"Счёт: {self.score}",
                                       16, SCREEN_H - 36, arcade.color.DARK_SLATE_GRAY,
                                       20, batch=self.batch)
-def main():
+
+    def on_key_press(self, key, modifiers):
+        if key in (arcade.key.LEFT, arcade.key.A):
+            self.left = True
+        elif key in (arcade.key.RIGHT, arcade.key.D):
+            self.right = True
+        elif key in (arcade.key.UP, arcade.key.W):
+            self.up = True
+        elif key in (arcade.key.DOWN, arcade.key.S):
+            self.down = True
+        elif key == arcade.key.SPACE:
+            self.jump_pressed = True
+            self.jump_buffer_timer = JUMP_BUFFER
+
+    def on_key_release(self, key, modifiers):
+        if key in (arcade.key.LEFT, arcade.key.A):
+            self.left = False
+        elif key in (arcade.key.RIGHT, arcade.key.D):
+            self.right = False
+        elif key in (arcade.key.UP, arcade.key.W):
+            self.up = False
+        elif key in (arcade.key.DOWN, arcade.key.S):
+            self.down = False
+        elif key == arcade.key.SPACE:
+            self.jump_pressed = False
+            # Вариативная высота прыжка: отпустили рано — подрежем скорость вверх
+            if self.player.change_y > 0:
+                self.player.change_y *= 0.45
+def setup_game(width=960, height=640, title="Real Jump"):
     game = Platformer()
+    game.setup()
+    return game
+
+
+def main():
+    setup_game(SCREEN_W, SCREEN_H, TITLE)
     arcade.run()
+
 
 if __name__ == "__main__":
     main()
